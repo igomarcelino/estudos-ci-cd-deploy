@@ -1,1 +1,7 @@
 /home/igo/Dev/git/study/gitStudy/Languages/Java/Spring/estudo-ci-cd/src/main/java/org/igomarcelino/estudo_ci_cd/EstudoCiCdApplication.java
+/home/igo/Dev/git/study/gitStudy/Languages/Java/Spring/estudo-ci-cd/src/main/java/org/igomarcelino/estudo_ci_cd/controller/MensagemController.java
+/home/igo/Dev/git/study/gitStudy/Languages/Java/Spring/estudo-ci-cd/src/main/java/org/igomarcelino/estudo_ci_cd/dto/MensagemRequestDTO.java
+/home/igo/Dev/git/study/gitStudy/Languages/Java/Spring/estudo-ci-cd/src/main/java/org/igomarcelino/estudo_ci_cd/dto/MensagemResponseDTO.java
+/home/igo/Dev/git/study/gitStudy/Languages/Java/Spring/estudo-ci-cd/src/main/java/org/igomarcelino/estudo_ci_cd/entity/Mensagem.java
+/home/igo/Dev/git/study/gitStudy/Languages/Java/Spring/estudo-ci-cd/src/main/java/org/igomarcelino/estudo_ci_cd/repository/MensagemRepository.java
+/home/igo/Dev/git/study/gitStudy/Languages/Java/Spring/estudo-ci-cd/src/main/java/org/igomarcelino/estudo_ci_cd/service/MensagemServide.java

@@ -1,0 +1,5 @@
+org/igomarcelino/estudo_ci_cd/controller/MensagemController.class
+org/igomarcelino/estudo_ci_cd/service/MensagemServide.class
+org/igomarcelino/estudo_ci_cd/repository/MensagemRepository.class
+org/igomarcelino/estudo_ci_cd/dto/MensagemRequestDTO.class
+org/igomarcelino/estudo_ci_cd/dto/MensagemResponseDTO.class
