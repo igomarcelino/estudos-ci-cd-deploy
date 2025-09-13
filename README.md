@@ -142,7 +142,7 @@ Antes de pensar em nuvem, vamos garantir que nossa imagem funciona perfeitamente
         - `minha-api` → é o **nome da imagem** (pode ser qualquer identificador).
         - `local` → é a **tag**, geralmente usada para indicar a versão ou ambiente.
             - Exemplo: `:1.0.0`, `:latest`, `:prod`, `:dev`.
-            - Aqui você usou `:local`, para indicar que é uma build local de desenvolvimento.
+            - Aqui usamos `:local`, para indicar que é uma build local de desenvolvimento.
         
         👉 Se você não colocar `-t`, o Docker dá um nome genérico (`<none>`).
         
@@ -211,13 +211,15 @@ gcloud compute instances create minha-api \
 
 ### 2.2 Configurar Regras de Firewall
 
-Liberamos a porta `80` (HTTP) e garantimos o acesso SSH seguro via IAP.
+Liberamos a porta `80` e `443` (HTTP) e garantimos o acesso SSH seguro via IAP.
 
 Bash
 
 ```yaml
 # Regra para HTTP
 gcloud compute firewall-rules create allow-api-http --allow tcp:80 --target-tags=api-server
+
+gcloud compute firewall-rules create allow-api-http --allow tcp:443 --target-tags=api-server
 
 # Regra para SSH via IAP
 gcloud compute firewall-rules create allow-iap-ssh --allow=tcp:22 --source-ranges=35.235.240.0/20
