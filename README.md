@@ -1,5 +1,33 @@
 # Guia Completo: Deploy Contínuo de API Spring Boot no GCP
 
+## 📑 Índice
+- [Parte 1: Preparando e Testando a Aplicação Localmente](#parte-1-preparando-e-testando-a-aplicação-localmente)
+  - [1.1 Configurando os Perfis (Profiles) da Aplicação](#11-configurando-os-perfis-profiles-da-aplicação)
+  - [1.2 Criando a entidade → repository → Service → Controller](#12-criando-a-entidade--repository--service--controller)
+  - [1.3 Testando a Imagem Docker Localmente](#13-testando-a-imagem-docker-localmente)
+  - [1.4 Criando o Dockerfile](#14-criando-o-dockerfile)
+- [Parte 2: Configurando a Infraestrutura de Produção (GCP)](#parte-2-configurando-a-infraestrutura-de-produção-gcp)
+  - [2.1 Criar a Máquina Virtual (VM)](#21-criar-a-máquina-virtual-vm)
+  - [2.2 Configurar Regras de Firewall](#22-configurar-regras-de-firewall)
+  - [2.3 Acessar a VM com Segurança (IAP)](#23-acessar-a-vm-com-segurança-iap)
+  - [2.4 Instalar Dependências na VM](#24-instalar-dependências-na-vm)
+  - [2.5 Configurar o Banco de Dados PostgreSQL](#25-configurar-o-banco-de-dados-postgresql)
+  - [2.6 Instalar e Configurar o GitHub Self-Hosted Runner](#26-instalar-e-configurar-o-github-self-hosted-runner)
+- [Parte 3: Construindo o Pipeline de Deploy (CI/CD)](#parte-3-construindo-o-pipeline-de-deploy-cicd)
+  - [3.1 Criar o Segredo no GCP Secret Manager](#31-criar-o-segredo-no-gcp-secret-manager)
+  - [3.2 Criar Segredos no GitHub](#32-criar-segredos-no-secret-manager)
+  - [3.3 Criando o Workflow (`deploy.yml`)](#33-criando-o-workflow-deployyml)
+- [Parte 4: Configuração Final na VM](#parte-4-configuração-final-na-vm)
+  - [4.1 Configurar o Nginx como Proxy Reverso](#41-configurar-o-nginx-como-proxy-reverso)
+  - [4.2 Configurar o Ops Agent para Logs](#42-configurar-o-ops-agent-para-logs)
+- [Parte 5: A Hora da Verdade - O Deploy!](#parte-5-a-hora-da-verdade---o-deploy)
+  - [5.1 Fazendo o Push para o GitHub](#51-fazendo-o-push-para-o-github)
+  - [5.2 Acompanhando o Deploy](#52-acompanhando-o-deploy)
+  - [5.3 Verificação Final](#53-verificação-final)
+- [Testando o CI/CD com uma nova funcionalidade](#testando-o-cicd-com-uma-nova-funcionalidade)
+- [Próximos Passos](#próximos-passos)
+
+---
 Este guia adota uma abordagem "developer-first" para o deploy contínuo. Primeiro, vamos preparar e testar nossa aplicação e sua imagem Docker localmente. Com a confiança de que a aplicação funciona, partiremos para a configuração da infraestrutura na nuvem e, por fim, automatizaremos o deploy com GitHub Actions.
 
 ## Parte 1: Preparando e Testando a Aplicação Localmente
@@ -45,8 +73,19 @@ Spring Profiles nos permite ter configurações diferentes para cada ambiente.
     ```
     
     - [x]  testar a cominicacao e comitar para o git
+### 
+
+## Peço desculpas pois o compressor estava cortando muito o audio
+    
+✅ Vídeo explicativo:  
+[![Assista no YouTube](https://img.youtube.com/vi/7XdTOvUJRM0/1.jpg)](https://www.youtube.com/watch?v=7XdTOvUJRM0)
 
 ### 1.2 Criando a entidade → repository → Service → Controller
+
+
+✅ Vídeo explicativo:  
+[![Assista no YouTube](https://img.youtube.com/vi/LdXxaBZcwC4/1.jpg)](https://www.youtube.com/watch?v=LdXxaBZcwC4)
+
 
 ### 1.4 Criando o `Dockerfile`
 
@@ -144,6 +183,12 @@ Antes de pensar em nuvem, vamos garantir que nossa imagem funciona perfeitamente
     
 - [x]  **Commitar para o git → build: configura o build e perfis da aplicacao**
 
+✅ Vídeo explicativo:  
+[![Assista no YouTube](https://img.youtube.com/vi/ekiWPM1Y7qI/1.jpg)](https://www.youtube.com/watch?v=ekiWPM1Y7qI)
+
+
+
+
 ## Parte 2: Configurando a Infraestrutura de Produção (GCP)
 
 Agora, vamos para o Google Cloud para criar e configurar o ambiente que hospedará nossa API.
@@ -228,6 +273,8 @@ GRANT ALL PRIVILEGES ON DATABASE banco_bastion TO postgres;
 > Ação Crítica: Guarde essa senha! Você vai precisar dela em breve.
 > 
 
+-- aqui um video
+
 ### 2.6 Instalar e Configurar o GitHub Self-Hosted Runner
 
 1. **Conceda permissão do Docker ao seu usuário:**Bash
@@ -249,6 +296,22 @@ GRANT ALL PRIVILEGES ON DATABASE banco_bastion TO postgres;
     sudo ./svc.sh start
     ```
     
+### Criando a VM e definindo as Regras de Firewall 
+
+✅ Vídeo explicativo:  
+[![Assista no YouTube](https://img.youtube.com/vi/eBHZ2MPIJsQ/2.jpg)](https://www.youtube.com/watch?v=eBHZ2MPIJsQ)
+
+
+### Instalando e configurando os programas
+
+✅ Vídeo explicativo:  
+[![Assista no YouTube](https://img.youtube.com/vi/Z2h13bm5qWI/2.jpg)](https://www.youtube.com/watch?v=Z2h13bm5qWI)
+
+
+### Configurando o Self runner
+
+✅ Vídeo explicativo:  
+[![Assista no YouTube](https://img.youtube.com/vi/rFOTz1SkDxE/2.jpg)](https://www.youtube.com/watch?v=rFOTz1SkDxE)
 
 ## Parte 3: Construindo o Pipeline de Deploy (CI/CD)
 
@@ -265,12 +328,15 @@ Com a infraestrutura pronta, voltamos ao nosso repositório para definir o pipel
     gcloud secrets versions access latest --secret='secret'
     
     ```
-    
+
 
 ### 3.2 Criar Segredos no Secret Manager
 
 1. No seu repositório, vá para **Settings > Secrets and variables > Actions**.
 2. Crie um novo segredo:
+
+✅ Vídeo explicativo:  
+[![Assista no YouTube](https://img.youtube.com/vi/UTRpeoVAdXM/2.jpg)](https://www.youtube.com/watch?v=UTRpeoVAdXM) 
 
 ### 3.3 Criando o Workflow (`deploy.yml`)
 
@@ -303,7 +369,7 @@ jobs:
         uses: google-github-actions/get-secretmanager-secrets@v3
         with:
           secrets: |-
-            db_password:projects/mpv-concentrador-xml/secrets/DB_PASSWORD/versions/latest
+            db_password:projects/[PROJECT-ID]/secrets/DB_PASSWORD/versions/latest
 
       - name: 3. Construir a Imagem Docker
         id: build
@@ -326,6 +392,9 @@ jobs:
 
 ```
 
+✅ Vídeo explicativo:  
+[![Assista no YouTube](https://img.youtube.com/vi/5J81SHBHb9U/2.jpg)](https://www.youtube.com/watch?v=5J81SHBHb9U)
+ 
 ## Parte 4: Configuração Final na VM
 
 Estes são os últimos ajustes na VM para que ela possa receber e expor nossa API.
@@ -364,6 +433,8 @@ Bash
 sudo ln -s /etc/nginx/sites-available/api.conf /etc/nginx/sites-enabled/
 sudo nginx -t && sudo systemctl restart nginx
 ```
+✅ Vídeo explicativo:  
+[![Assista no YouTube](https://img.youtube.com/vi/vVwdGkDZ1iA/2.jpg)](https://youtu.be/vVwdGkDZ1iA)
 
 ### 4.2 Configurar o Ops Agent para Logs
 
@@ -405,6 +476,8 @@ Bash
 ```yaml
 sudo systemctl restart google-cloud-ops-agent
 ```
+✅ Vídeo explicativo:  
+[![Assista no YouTube](https://img.youtube.com/vi/PotPFU8s49M/1.jpg)](https://youtu.be/PotPFU8s49M)
 
 ## Parte 5: A Hora da Verdade - O Deploy!
 
@@ -447,6 +520,13 @@ Vá para a aba **Actions** no seu repositório do GitHub e observe a mágica aco
 
 ---
 
+✅ Vídeo explicativo:  
+[![Assista no YouTube](https://img.youtube.com/vi/cU3-ntDka9U/1.jpg)](https://www.youtube.com/watch?v=cU3-ntDka9U)
+
+## Testando o CI/CD com uma nova funcionalidade
+
+✅ Vídeo explicativo:  
+[![Assista no YouTube](https://img.youtube.com/vi/JKj-BpUwSZ4/1.jpg)](https://www.youtube.com/watch?v=JKj-BpUwSZ4)
 ### Próximos Passos
 
 - **Ativar HTTPS:** Use o `certbot` para adicionar um certificado SSL/TLS gratuito.
