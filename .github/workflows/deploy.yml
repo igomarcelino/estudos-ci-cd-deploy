@@ -1,0 +1,44 @@
+name: CI/CD - Deploy API to GCP VM with Secret Manager
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build-and-deploy:
+    name: Build, Deploy and Run Container
+    runs-on: self-hosted
+
+    permissions:
+      contents: 'read'
+      id-token: 'write'
+
+    steps:
+      - name: 1. Checkout do Repositório
+        uses: actions/checkout@v4
+
+      - name: 2. Obter Senha do Secret Manager
+        id: get_db_password
+        uses: google-github-actions/get-secretmanager-secrets@v3
+        with:
+          secrets: |-
+            db_password:projects/estudos-dev-ci-cd/secrets/DB_PASSWORD/versions/latest
+
+      - name: 3. Construir a Imagem Docker
+        id: build
+        run: |
+          docker build -t minha-api:${{ github.sha }} .
+
+      - name: 4. Parar e Remover Contêiner Antigo
+        run: |
+          docker stop api-container || true
+          docker rm api-container || true
+
+      - name: 5. Rodar o Novo Contêiner com a Senha
+        run: |
+          echo "Iniciando o novo contêiner em modo de produção..."
+          docker run -d --name api-container --network host \
+            -v /var/log/minha-api:/var/log/minha-api \
+            -e SPRING_PROFILES_ACTIVE="prod" \
+            -e SPRING_DATASOURCE_PASSWORD="${{ steps.get_db_password.outputs.db_password }}" \
+            minha-api:${{ github.sha }}
