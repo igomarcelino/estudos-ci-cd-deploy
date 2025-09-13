@@ -4,6 +4,8 @@ import org.igomarcelino.estudo_ci_cd.dto.MensagemRequestDTO;
 import org.igomarcelino.estudo_ci_cd.dto.MensagemResponseDTO;
 import org.igomarcelino.estudo_ci_cd.entity.Mensagem;
 import org.igomarcelino.estudo_ci_cd.repository.MensagemRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -29,9 +31,8 @@ public class MensagemServide {
         return new MensagemResponseDTO(novaMensagem);
     }
 
-    public List<MensagemResponseDTO> mensagens(){
-        return mensagemRepository.findAll()
-                .stream().map(MensagemResponseDTO::new)
-                .toList();
+    public Page<MensagemResponseDTO> mensagens(Pageable pageable){
+        return mensagemRepository.findAll(pageable).map(MensagemResponseDTO::new);
+
     }
 }
