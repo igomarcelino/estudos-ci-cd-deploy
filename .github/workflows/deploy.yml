@@ -3,6 +3,11 @@ name: CI/CD - Deploy API to GCP VM with Secret Manager
 on:
   push:
     branches: [ main ]
+    paths-ignore:
+      - 'README.md'       # Ignora mudanças apenas no README
+      - 'docs/**'         # Ignora qualquer arquivo dentro da pasta 'docs'
+      - 'LICENSE'         # Ignora o arquivo de licença
+      - 'CONTRIBUTING.md' # Ignora o guia de contribuição
 
 jobs:
   build-and-deploy:
